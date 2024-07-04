@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NMS.Assistant.Tracker": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Development\\Projects\\AssistantNMS\\AssistantNMS.WebApi\\NMS.Assistant.Api\""
+    }
+  }
+}

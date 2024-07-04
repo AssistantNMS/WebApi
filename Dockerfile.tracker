@@ -1,0 +1,25 @@
+
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["NMS.Assistant.Tracker/NMS.Assistant.Tracker.csproj", "NMS.Assistant.Tracker/"]
+COPY ["NMS.Assistant.Data/NMS.Assistant.Data.csproj", "NMS.Assistant.Data/"]
+COPY ["NMS.Assistant.Domain/NMS.Assistant.Domain.csproj", "NMS.Assistant.Domain/"]
+COPY ["NMS.Assistant.Integration/NMS.Assistant.Integration.csproj", "NMS.Assistant.Integration/"]
+COPY ["NMS.Assistant.Persistence/NMS.Assistant.Persistence.csproj", "NMS.Assistant.Persistence/"]
+RUN dotnet restore "NMS.Assistant.Tracker/NMS.Assistant.Tracker.csproj"
+COPY . .
+WORKDIR "/src/NMS.Assistant.Tracker"
+RUN dotnet build "NMS.Assistant.Tracker.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "NMS.Assistant.Tracker.csproj" -c Release --self-contained --os linux --arch x64 -o /app/publish 
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "NMS.Assistant.Tracker.dll"]

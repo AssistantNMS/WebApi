@@ -1,0 +1,54 @@
+trigger: none 
+
+pool:
+  vmImage: 'ubuntu-latest'
+  demands:
+  - msbuild
+  - visualstudio
+
+variables:
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    useGlobalJson: true
+
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet 6.3'
+  inputs:
+    versionSpec: '6.3.x'
+
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+
+- task: PowerShell@2
+  displayName: 'Docker login'
+  inputs:
+    targetType: 'inline'
+    script: 'docker login registry.assistantapps.com -u assistantApps -p $(dockerPass)'
+
+- task: PowerShell@2
+  displayName: 'Docker Build, Tag & Push'
+  inputs:
+    targetType: 'inline'
+    script: |
+      docker build -t assistantnms-tracker -f Dockerfile.tracker .
+
+      $version = '0.' + $(Build.BuildId)
+
+      docker tag assistantnms-tracker registry.assistantapps.com/assistantnms-tracker:latest
+      docker tag assistantnms-tracker registry.assistantapps.com/assistantnms-tracker:$version
+
+      docker push registry.assistantapps.com/assistantnms-tracker:latest
+      docker push registry.assistantapps.com/assistantnms-tracker:$version
+
+      $version | Out-File -FilePath "$(build.artifactstagingdirectory)/version.txt"
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact - Tracker version'
+  inputs:
+    ArtifactName: TrackerVersion
