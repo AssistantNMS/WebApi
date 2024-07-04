@@ -1,0 +1,114 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+  "AllowedHosts": [
+    "https://nmsassistant.com",
+    "https://app.nmsassistant.com",
+    "https://experimental.nmsassistant.com",
+    "https://tools.nmsassistant.com",
+    "https://nmscd.github.io",
+    "https://nmscd.github.io/CommunityMission-Progress-Viewer/",
+    "https://www.nmscd.com",
+    "https://www.nmscd.com/CommunityMission-Progress-Viewer/",
+    "https://nmscd.com",
+    "https://nmscd.com/CommunityMission-Progress-Viewer/",
+    "https://community-mission.nmscd.com",
+    "https://webcomp.nmsassistant.com",
+    "https://docs.assistantapps.com",
+    "https://status.nmscd.com",
+    "https://update.nmscd.com"
+  ],
+  "Stripe": {
+    "PublishableKey": "",
+    "SecretKey": ""
+  },
+  "Caching": {
+    "ExpiryInSeconds": 10,
+    "PermissionsExpiryInSeconds": 10
+  },
+  "Database": {
+    "ConnectionString": "",
+    "CommandTimeout": 10,
+    "PageSize": 5
+  },
+  "Jwt": {
+    "Secret": "",
+    "Issuer": "",
+    "Audience": "",
+    "TimeValidInSeconds": "",
+    "ClockSkewInSeconds": ""
+  },
+  "ApplicationInsights": {
+    "Enabled": true,
+    "InstrumentationKey": "",
+    "ConnectionString": ""
+  },
+  "Webhook": {
+    "AppNews": [],
+    "Feedbacks": [],
+    "Translations": [],
+    "Guides": [],
+    "Versions": [],
+    "Personal": []
+  },
+  "Twitter": {
+    "ConsumerApiKey": "",
+    "ConsumerApiSecretKey": "",
+    "AccessToken": "",
+    "AccessTokenSecret": ""
+  },
+  "Firebase": {
+    "PathRoRefreshToken": "",
+    "ApplicationId": "",
+    "ProjectId": ""
+  },
+  "SharedDirectory": {
+    "GuideBasePath": "",
+    "LangBasePath": "/"
+  },
+  "Redis": {
+    "ConnectionString": "redis:6379",
+    "Password": "",
+    "InstanceName": "",
+    "ConnectRetry": 1
+  },
+  "SendGrid": {
+    "BaseApiUrl": "",
+    "ApiKey": ""
+  },
+  "Directory": {
+    "CommunitySpotlight": {
+      "DiskPath": "",
+      "WebPath": ""
+    },
+    "TempDownload": {
+      "DiskPath": "",
+      "WebPath": ""
+    }
+  },
+  "Authentication": {
+    "GoogleAuth": {
+      "ApiKey": ""
+    },
+    "UptimeRobotAuth": {
+      "NMSCDApiKey": ""
+    },
+    "NomNomAuth": {
+      "Inventory": ""
+    },
+    "MastodonAuth": {
+      "AccessToken": ""
+    },
+    "GunterAuth": {
+      "Update": ""
+    },
+    "NoMansSkySocialAuth": {
+      "ApiKey": ""
+    }
+  }
+}
